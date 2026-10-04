@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173e36">
+  <meta name="description" content="Fünf Buchstaben. Zehn Versuche. Ein geheimes Wort.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Memorium">
+  <title>Reinhold Memorium · 0.1.0</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+  <script src="game.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header><span class="eyebrow">DAS WORTSPIEL FÜR ZWEI</span><h1>Reinhold<br><span>Memorium.</span></h1><p>Fünf Buchstaben. Zehn Versuche. Ein Geheimnis.</p></header>
+    <section class="card" aria-labelledby="setup-title" id="setup">
+      <span class="step">01 / WORT FESTLEGEN</span><h2 id="setup-title">Dein Wort bleibt geheim.</h2>
+      <p>Eine Person gibt das Hauptwort ein. Danach übernimmt die andere Person das Gerät und rät.</p>
+      <form id="setup-form" novalidate autocomplete="off">
+        <label for="secret">Geheimes Hauptwort</label>
+        <div class="input-row"><input id="secret" type="password" autocomplete="new-password" autocapitalize="characters" spellcheck="false" aria-describedby="word-help setup-error"><button type="button" class="secondary" id="reveal" aria-pressed="false">Anzeigen</button></div>
+        <p class="hint" id="word-help">Genau 5 verschiedene Buchstaben A–Z. Keine Umlaute, kein ß.</p>
+        <p class="error" id="setup-error" role="alert"></p>
+        <button class="primary" type="submit">Wort verbergen & Spiel starten <span aria-hidden="true">→</span></button>
+      </form>
+    </section>
+    <section class="card" id="play" hidden aria-labelledby="play-title">
+      <div class="section-top"><span class="step">02 / WORT ENTDECKEN</span><span id="counter" class="badge">0 / 10</span></div>
+      <h2 id="play-title" tabindex="-1">Welches Wort ist gesucht?</h2>
+      <p id="status" role="status">Das Hauptwort ist verborgen. Gib das Gerät jetzt weiter.</p>
+      <form id="guess-form" novalidate autocomplete="off">
+        <label for="guess">Dein Ratewort</label>
+        <input id="guess" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="guess-help guess-error">
+        <p id="guess-help" class="hint">5 verschiedene Buchstaben A–Z · Enter bestätigt.</p>
+        <p id="guess-error" class="error" role="alert"></p>
+        <button class="primary" type="submit">Wort prüfen <span aria-hidden="true">→</span></button>
+      </form>
+      <div id="result" class="result" hidden><h3 id="result-title" tabindex="-1"></h3><p id="result-text"></p></div>
+      <div id="history" hidden><table><caption>Deine bisherigen Versuche</caption><thead><tr><th scope="col">Nr.</th><th scope="col">Ratewort</th><th scope="col">Ergebnis</th></tr></thead><tbody id="attempts"></tbody></table></div>
+      <button type="button" id="restart" class="secondary restart">Neues Spiel</button>
+      <div id="restart-confirm" hidden><p>Aktuelles Spiel beenden? Alle bisherigen Versuche gehen verloren.</p><div class="input-row"><button id="restart-yes" class="secondary" type="button">Ja, neu beginnen</button><button id="restart-no" class="secondary" type="button">Weiterspielen</button></div></div>
+    </section>
+    <details class="rules"><summary>So liest du die zwei Ziffern</summary><div class="rule-content"><div class="score-demo" aria-label="Beispiel Ergebnis 2 1"><span>2<small>richtige Position</small></span><span>1<small>andere Position</small></span></div><p>Die erste Ziffer zählt exakt platzierte Buchstaben. Die zweite zählt weitere Buchstaben aus dem Hauptwort, die an einer anderen Position stehen. Kein Buchstabe wird doppelt gezählt.</p><p>Beispiel mit <strong>LAMPE</strong>: KLUFT → <strong>01</strong>, LACHS → <strong>20</strong>, AMPEL → <strong>05</strong>, LAMPE → <strong>50</strong>.</p><p>Bei 50 ist das Spiel sofort gewonnen. Nach 10 Fehlversuchen wird das Hauptwort aufgedeckt. Es gibt keine Wörterbuchprüfung.</p></div></details>
+    <details class="rules"><summary>Auf dem Home-Bildschirm verwenden</summary><div class="rule-content"><p>Öffne die veröffentlichte HTTPS-Adresse. Auf iPhone/iPad: in Safari „Teilen“ → „Zum Home-Bildschirm“. Auf Android: im Browsermenü „App installieren“ oder „Zum Startbildschirm hinzufügen“. Die Bezeichnung hängt vom Browser ab.</p><p id="offline-status">Direkt als Datei spielbar. Für Installation und Offline-Cache bitte über HTTPS oder localhost öffnen.</p><button type="button" id="install" class="secondary" hidden>App installieren</button></div></details>
+    <footer><span>Reinhold Memorium · 0.1.0 Web</span><p>Kein Konto. Keine gespeicherten Spielstände.<br>Beim Neuladen beginnt ein neues Spiel.</p></footer>
+    <noscript>Bitte JavaScript aktivieren, um Reinhold Memorium zu spielen.</noscript>
+  </main>
+</body>
+</html>
